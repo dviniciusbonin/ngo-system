@@ -1,0 +1,38 @@
+#!/bin/bash
+
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+COMMAND=$1
+shift
+
+case "$COMMAND" in
+  help|"")
+    echo -e "${GREEN}Available commands:${NC}"
+    echo "  ./run npm <args...>      - Run any npm command inside Docker"
+    echo "  ./run dev                - Start the development API service with Docker"
+    echo "  ./run dev-d              - Start the development API service in detached mode"
+    echo "  ./run down               - Stop and remove the development API service"
+    ;;
+  npm)
+    echo -e "${GREEN}Running: npm $@${NC}"
+    docker-compose run --rm npm "$@"
+    ;;
+  dev)
+    echo -e "${GREEN}Starting API in development mode with Docker...${NC}"
+    docker-compose up api-dev
+    ;;
+  dev-d)
+    echo -e "${GREEN}Starting API in development mode with Docker (detached)...${NC}"
+    docker-compose up -d api-dev
+    ;;
+  down)
+    echo -e "${GREEN}Stopping and removing API service...${NC}"
+    docker-compose down
+    ;;
+  *)
+    echo -e "${GREEN}Unknown command: $COMMAND${NC}"
+    echo "Try ./run help"
+    exit 1
+    ;;
+esac
