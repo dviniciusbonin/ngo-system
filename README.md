@@ -9,9 +9,10 @@
 
 Projeto desenvolvido referente ao desafio da disciplina de clean architecture da segunda fase da postech em Software Architecture - FIAP
 
-![Diagrama de arquitetura](./docs/clean-architecture.svg)
+<p align="center">
+  <img src="./docs/clean-architecture.svg" alt="Diagrama de arquitetura" width="100%"/>
+</p>
 O diagrama acima segue os princípios da Clean Architecture, separando o domínio de negócio (Entidades) das camadas de aplicação (Casos de Uso), adaptação (Interface Adapters) e infraestrutura (Frameworks and Drivers).
-
 ## ✅ Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado em sua máquina:
