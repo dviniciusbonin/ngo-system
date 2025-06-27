@@ -8,8 +8,12 @@ describe('DeliveryPackage', () => {
 
   it('should be able to create a delivery package with valid order and delivery date', () => {
     const order = new Order(ITEMS);
+
     const deliveryPackage = new DeliveryPackage(order, new Date('2022-01-01'));
+
     expect(deliveryPackage).toBeInstanceOf(DeliveryPackage);
+    expect(deliveryPackage.order).toBe(order);
+    expect(deliveryPackage.items).toEqual(ITEMS);
   });
 
   it('should be able to finish the order', () => {

@@ -9,12 +9,16 @@ export class DeliveryPackage extends Package {
     deliveryAt?: Date,
     id?: string,
   ) {
-    super(order.items, id);
+    super(id);
     this._deliveryAt = deliveryAt ?? new Date();
   }
 
   get deliveryAt(): Date {
     return this._deliveryAt;
+  }
+
+  get items() {
+    return this.order.items;
   }
 
   finishOrder() {

@@ -1,15 +1,10 @@
-import { Item } from './item';
 import { Package } from './package';
 
-export class ReceiveingPackage extends Package {
+export class ReceivingPackage extends Package {
   private _receivedAt: Date;
 
-  constructor(
-    readonly items: Item[],
-    receivedAt?: Date,
-    id?: string,
-  ) {
-    super(items, id);
+  constructor(receivedAt?: Date, id?: string) {
+    super(id);
     this._receivedAt = receivedAt ?? new Date();
   }
 

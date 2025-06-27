@@ -17,7 +17,7 @@ describe('Item', () => {
 
   it('should throw an error when creating an item with quantity zero', () => {
     expect(() => new Item(randomUUID(), -10)).toThrow(
-      'Quantity should be greatter than zero',
+      'Quantity should be greater than zero',
     );
   });
 });

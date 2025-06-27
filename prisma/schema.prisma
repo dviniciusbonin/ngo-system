@@ -12,3 +12,50 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  id         String   @id @db.Uuid()
+  name       String   @unique
+  unit_type  String
+  stock      Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  items      Item[]
+}
+
+model ReceivingPackage {
+  id          String   @id @db.Uuid()
+  received_at DateTime @default(now())
+  items       Item[]
+}
+
+model Order {
+  id         String   @id @db.Uuid()
+  status     String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  delivery_package DeliveryPackage?
+}
+
+model DeliveryPackage {
+  id          String    @id @db.Uuid()
+  delivery_at DateTime?
+
+  items    Item[]
+  order    Order  @relation(fields: [order_id], references: [id])
+  order_id String @unique @db.Uuid()
+}
+
+model Item {
+  id         String  @id @db.Uuid()
+  quantity   Int
+  product_id String  @db.Uuid()
+  product    Product @relation(fields: [product_id], references: [id])
+
+  receiving_package_id String?           @db.Uuid()
+  receiving_package    ReceivingPackage? @relation(fields: [receiving_package_id], references: [id])
+
+  delivery_package_id String?          @db.Uuid()
+  delivery_package    DeliveryPackage? @relation(fields: [delivery_package_id], references: [id])
+}
