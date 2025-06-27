@@ -1,0 +1,46 @@
+@startuml
+!theme plain
+
+package "Domain" {
+  class Product
+  class Package
+  class ReceivingPackage
+  class Item
+
+  Package <|-- ReceivingPackage
+  Package "1" o-- "*" Item
+  Item "1" --> "1" Product
+}
+
+package "Application" {
+  class RegisterPackage
+  interface ProductRepository
+  interface ReceivingPackageRepository
+
+  RegisterPackage --> ProductRepository
+  RegisterPackage --> ReceivingPackageRepository
+}
+
+package "Adapters" {
+  class ProductRepositoryGateway
+  class ReceivingPackageRepositoryGateway
+  class PackageController
+  class ReceivingPackagePresenter
+
+  ProductRepositoryGateway ..|> ProductRepository
+  ReceivingPackageRepositoryGateway ..|> ReceivingPackageRepository
+
+  PackageController --> ProductRepositoryGateway
+  PackageController --> ReceivingPackageRepositoryGateway
+  PackageController --> RegisterPackage
+  PackageController --> ReceivingPackagePresenter
+}
+
+package "Frameworks and Drivers" {
+  class PrismaDatasource
+
+  ProductRepositoryGateway --> PrismaDatasource
+  ReceivingPackageRepositoryGateway --> PrismaDatasource
+}
+
+@enduml
